@@ -483,7 +483,7 @@
   </form>
   <script>
     edit = document.getElementsByClassName("btn_edit");
-    validation = document.getElementsByClassName("validation");
+    validation = document.getElementsByClassName("btn");
 
     function assign(q_no) {
       document.getElementById("next_question_no").value = q_no;
@@ -558,15 +558,17 @@
     Array.from(validation).forEach(function (e) {
       e.addEventListener("click", () => {
         // grab question h2 element
-        question_elm = e.parentElement.parentElement.children[0];
+        question_elm = document.getElementsByClassName("question")[0];
+        question_id = e.getAttribute("data-question-id");
         option1=document.getElementById("option1");
         option2=document.getElementById("option2");
         option3=document.getElementById("option3");
         option4=document.getElementById("option4");
         answer=document.getElementById("answer");
-        question_id = e.getAttribute("data-question-id");
+        // question_id = e.getAttribute("data-question-id");
         task = e.getAttribute("data-task");
         is_valid = e.getAttribute("data-valid");
+        console.log(is_valid)
 
         if (is_valid != "True") {
           e.classList.remove("btn_invalid")
@@ -581,7 +583,7 @@
           e.innerText = "Invalid";
           is_valid = "False";
           e.setAttribute("data-valid", "False");
-          send(question_id, question_elm.value, option1.value, option2.value, option3.value, option4.value, answer.value, is_valid);
+          send(question_id, question_elm.value, option1.value, option2.value, option3.value, option4.value, answer.value, task, is_valid);
         }
 
         // set contenteditable attribute to h2 tag

@@ -1,4 +1,4 @@
-import distutils.core
+import django.utils
 import random
 import json
 from datetime import date
@@ -562,7 +562,8 @@ def edit(request):
         option4 = data["option4"]
         answer = data["answer"]
         task = data["task"]
-        is_valid = bool(distutils.util.strtobool(data["is_valid"]))
+        is_valid = False if data['is_valid'] == 'True' else True
+        # print(is_valid)
         
         if task == "edit":
             # If task to be performend is edit

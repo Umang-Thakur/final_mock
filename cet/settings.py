@@ -90,8 +90,8 @@ WSGI_APPLICATION = 'cet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cet_portal',
-        'USER': 'root',
+        'NAME': 'django_exam',
+        'USER': 'umang',
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
