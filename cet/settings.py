@@ -27,8 +27,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # f = open('secret_key.txt', 'r')
 # print(f)
-
+#Force Script for whitenoise
 FORCE_SCRIPT_NAME = '/cet'
+
 SECRET_KEY = config('SECRET_KEY')
 #
 # with open('/cet/secret_key.txt') as f:
