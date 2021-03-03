@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # f = open('secret_key.txt', 'r')
 # print(f)
 
-
+FORCE_SCRIPT_NAME = '/cet'
 SECRET_KEY = config('SECRET_KEY')
 #
 # with open('/cet/secret_key.txt') as f:
@@ -158,9 +158,10 @@ USE_TZ = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-STATIC_URL = '/static/'
+STATIC_URL = FORCE_SCRIPT_NAME + '/static/'
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
 
