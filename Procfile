@@ -1,1 +1,1 @@
-web: gunicorn cet.wsgi --log-file -
+web: gunicorn cet.wsgi:application --log-file - --log-level debug
