@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import dj_database_url
-
+import django_heroku
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bootcamp.settings")
 
@@ -173,3 +173,6 @@ STATICFILES_DIRS = [
 # django_heroku.settings(locals())
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+django_heroku.settings(locals())
