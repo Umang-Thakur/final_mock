@@ -9,8 +9,6 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-import django_heroku
-django_heroku.settings(locals())
 
 import os
 import dj_database_url
@@ -31,7 +29,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # print(f)
 #Force Script for whitenoise'
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = "{{ secret_key }}"
 #
 # with open('/cet/secret_key.txt') as f:
 #     SECRET_KEY = f.read().strip()
@@ -39,7 +37,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECRET_KEY = 'kj^7kvotb_+=1217k92^r1o@5zb009jq_dvc25dobwfd=9sd=y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 
 ALLOWED_HOSTS = ['157.245.139.161', '206.189.40.232', 'sinhgadonline.com', '127.0.0.1', 'www.sinhgadonline.com', 'https://cetportal.herokuapp.com/']
 
@@ -65,7 +63,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-ROOT_URLCONF = 'cet.urls'
+
+ROOT_URLCONF = '{{ project_name }}.urls'
 
 TEMPLATES = [
     {
@@ -120,7 +119,7 @@ WSGI_APPLICATION = 'cet.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL')
+        default= "{{ DATABASE_URL }}"
     )
 }
 
