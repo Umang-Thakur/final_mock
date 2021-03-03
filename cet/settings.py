@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import django_heroku
 from django.core.wsgi import get_wsgi_application
 import os
+import dj_database_url
 from whitenoise.django import DjangoWhiteNoise
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bootcamp.settings")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,7 +39,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['157.245.139.161', '206.189.40.232', 'sinhgadonline.com', '127.0.0.1', 'www.sinhgadonline.com']
+ALLOWED_HOSTS = ['157.245.139.161', '206.189.40.232', 'sinhgadonline.com', '127.0.0.1', 'www.sinhgadonline.com', 'https://cetportal.herokuapp.com/']
 
 # Application definition
 INSTALLED_APPS = [
@@ -51,13 +54,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 ROOT_URLCONF = 'cet.urls'
@@ -168,7 +171,3 @@ STATICFILES_DIRS = [
 django_heroku.settings(locals())
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bootcamp.settings")
-application = get_wsgi_application()
-application = DjangoWhiteNoise(application)
