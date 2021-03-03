@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+import django_heroku
+from django.core.wsgi import get_wsgi_application
 import os
+from whitenoise.django import DjangoWhiteNoise
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # print(f)
 
 
-SECRET_KEY = 'kj^7kvotb_+=1217k92^r1o@5zb009jq_dvc25dobwfd=9sd=y'
+SECRET_KEY = config('SECRET_KEY')
 #
 # with open('/cet/secret_key.txt') as f:
 #     SECRET_KEY = f.read().strip()
@@ -32,7 +34,7 @@ SECRET_KEY = 'kj^7kvotb_+=1217k92^r1o@5zb009jq_dvc25dobwfd=9sd=y'
 # SECRET_KEY = 'kj^7kvotb_+=1217k92^r1o@5zb009jq_dvc25dobwfd=9sd=y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['157.245.139.161', '206.189.40.232', 'sinhgadonline.com', '127.0.0.1', 'www.sinhgadonline.com']
 
@@ -55,6 +57,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 ROOT_URLCONF = 'cet.urls'
@@ -87,19 +90,19 @@ WSGI_APPLICATION = 'cet.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_exam',
-        'USER': 'umang',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'OPTIONS': {
-            # 'read_default_file': '/etc/mysql/my.cnf',
-        },
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'django_exam',
+#         'USER': 'umang',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             # 'read_default_file': '/etc/mysql/my.cnf',
+#         },
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -109,6 +112,12 @@ DATABASES = {
 #         },
 #     }
 # }
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -146,7 +155,8 @@ USE_TZ = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
@@ -154,3 +164,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
    os.path.join(BASE_DIR, "static"),
 ]
+
+django_heroku.settings(locals())
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bootcamp.settings")
+application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
