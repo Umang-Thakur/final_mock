@@ -9,11 +9,9 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-import django_heroku
-from django.core.wsgi import get_wsgi_application
 import os
 import dj_database_url
-from whitenoise.django import DjangoWhiteNoise
+
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bootcamp.settings")
 
@@ -170,6 +168,6 @@ STATICFILES_DIRS = [
    os.path.join(BASE_DIR, "static"),
 ]
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
