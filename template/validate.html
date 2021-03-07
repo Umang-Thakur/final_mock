@@ -6,7 +6,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.number">
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
   <title>Validate Questions</title>
@@ -59,6 +58,25 @@
       color: whitesmoke;
     }
 
+    .back-arrow{
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color:white;
+      border-radius: 50%;
+      padding:10px 7px;
+      border:1px solid #bbbbbb;
+      left:45px;
+      top:97px;
+      z-index: 5;
+    }
+
+    .back-arrow img{
+      width: 100%;
+      height: 100%;
+      transform: rotate(180deg);
+    }
+
     .container {
       display: flex;
       height: 80vh;
@@ -93,7 +111,7 @@
       height: 80vh;
       overflow-y: scroll;
       margin-right: 10px;
-      border: 1px solid #bbbb;
+      border: 1px solid #bbbbbb;
     }
 
     .question {
@@ -361,10 +379,17 @@
 
 <body style="background-image: url({% static 'images/validate.png' %});">
   <div class="navbar">
-    <img src="{% static 'images/sinhgad.png' %}" width="100" height="70" class="d-inline-block align-top" alt="image"/>
+    <a href="/stes_test/">
+      <img src="{% static 'images/sinhgad.png' %}" width="100" height="70" class="d-inline-block align-top" alt="image"/>
+    </a>
     <h3>Sinhgad Technical Education Society</h3>
   </div>
   <div class="header">Validate Questions</div>
+  <a href="/stes_test/select_qset">
+    <div class="back-arrow">
+      <img src="{% static 'images/arrow.png' %}">
+    </div>
+  </a>
   <form action="/stes_test/validate/" method="POST">
     {% csrf_token %}
     <input type="hidden" value="{{subject}}" name="qset">
